@@ -1,5 +1,7 @@
 data_ingestion:
+  data_source: "local"
   source: "src/data/data.txt"
+  artifact_dir: "src/artifacts/data_ingestion"
   train_ratio: 0.8
   validation_ratio: 0.1
   test_ratio: 0.1
