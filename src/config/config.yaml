@@ -8,5 +8,11 @@ data_ingestion:
 
 data_processing:
   shift: 18
-  
+
+model_trainer:
+  n_estimators: 500
+  max_samples: 0.8
+  max_depth: 40
+
+
   

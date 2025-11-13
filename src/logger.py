@@ -17,7 +17,7 @@ LOG_FILE = LOG_DIR / f"log_{datetime.now().strftime('%Y-%m-%d')}.log"
 
 logging.basicConfig(
     filename=LOG_FILE,
-    format="[%(asctime)s] - %[(name)]s - %(levelname)s - %(message)s",
+    format="[%(asctime)s] - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO,
 )
 
