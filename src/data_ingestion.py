@@ -3,6 +3,9 @@ from pathlib import Path
 from config_reader import load_config
 from random import shuffle
 
+import csv
+import pandas as pd
+
 logger = get_logger(__name__)
 
 
@@ -50,14 +53,38 @@ class DataIngention:
                 line = data[t * row + j].split()
                 for i in range(column):
                     if int(line[i]) == -1:
-                        test_data.append((t, (j, i), int(line[i])))
+                        test_data.append((t, j, i, int(line[i])))
                     else:
-                        output_data.append((t, (j, i), int(line[i])))
+                        output_data.append((t, j, i, int(line[i])))
         shuffle(output_data)
         train_data = output_data[: int(len(output_data) * self.train_ratio)]
         validation_data = output_data[int(len(output_data) * self.train_ratio) :]
         return train_data, test_data, validation_data
 
+    def store_data(self, path: Path = Path("./artifacts")) -> None:
+        train_path = path / "train_data.csv"
+        test_path = path / "test_data.csv"
+        validation_path = path / "validation_data.csv"
+        header = ["time", "row", "column", "value"]
+        if not path.exists():
+            path.mkdir(parents=True, exist_ok=True)
+        with open(train_path, "w") as train_file:
+            writer = csv.writer(train_file)
+            writer.writerow(header)
+            writer.writerows(self.train_data)
+            logger.info(f"Train data saved to {train_path}")
+        with open(test_path, "w") as test_file:
+            writer = csv.writer(test_file)
+            writer.writerow(header)
+            writer.writerows(self.test_data)
+            logger.info(f"Test data saved to {test_path}")
+        with open(validation_path, "w") as validation_file:
+            writer = csv.writer(validation_file)
+            writer.writerow(header)
+            writer.writerows(self.validation_data)
+            logger.info(f"Validation data saved to {validation_path}")
+
 
 if __name__ == "__main__":
     data_ingestion = DataIngention(config="src/config/config.yaml")
+    data_ingestion.store_data()
