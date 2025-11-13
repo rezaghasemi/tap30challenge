@@ -9,7 +9,7 @@ import pandas as pd
 logger = get_logger(__name__)
 
 
-class DataIngention:
+class DataIngestion:
     def __init__(self, config: str) -> None:
         self.config = load_config(config)
         self.train_ratio = self.config["data_ingestion"]["train_ratio"]
@@ -19,6 +19,7 @@ class DataIngention:
         self.test_data = None
         self.validation_data = None
 
+    def ingest_data(self) -> None:
         if self.config["data_ingestion"]["data_source"] == "local":
             logger.info("Data source is local.")
             file_path = Path(self.config["data_ingestion"]["source"])
@@ -30,6 +31,8 @@ class DataIngention:
             self.train_data, self.test_data, self.validation_data = (
                 self.load_loacal_data(file_path)
             )
+
+            self.store_data(Path(self.config["data_ingestion"]["artifact_dir"]))
 
             logger.info("Raw data saved to artifact folder.")
         else:
