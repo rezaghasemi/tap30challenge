@@ -13,6 +13,7 @@ model_trainer:
   n_estimators: 500
   max_samples: 0.8
   max_depth: 40
+  save_model_path: "./artifacts/models"
 
 
   
