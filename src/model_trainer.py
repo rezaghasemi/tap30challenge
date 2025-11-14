@@ -4,6 +4,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import root_mean_squared_error
 from logger import get_logger
 from config_reader import load_config
+import joblib
 
 
 logger = get_logger(__name__)
@@ -55,6 +56,18 @@ class ModelTrainer:
         model = self.train_model(model, train_data)
         rmse = self.evaluate_model(model, val_data)
         logger.info(f"Model evaluation completed with RMSE: {rmse}")
+        self.save_model(model, rmse)
+        logger.info("Model training completed successfully")
+
+    def save_model(self, model: RandomForestRegressor, rmse: float):
+        logger.info(f"Saving model with RMSE: {rmse}")
+        saving_path = (
+            Path(self.config["model_trainer"]["save_model_path"])
+            / f"model_{int(rmse)}.joblib"
+        )
+        saving_path.parent.mkdir(parents=True, exist_ok=True)
+        joblib.dump(model, saving_path, compress=3)
+        logger.info(f"Model saved to {saving_path}")
 
 
 if __name__ == "__main__":
