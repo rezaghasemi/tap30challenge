@@ -16,5 +16,12 @@ model_trainer:
   save_model_path: "./artifacts/models"
   experiment_name: "Tap30Challenge"
 
+web:
+  host: "127.0.0.1"
+  port: 8000
+  model: 'artifacts/models'
+  model_name: 'model.joblib'
+  
+
 
   
