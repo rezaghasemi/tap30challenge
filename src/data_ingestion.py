@@ -1,7 +1,7 @@
-from logger import get_logger
 from pathlib import Path
-from config_reader import load_config
+from src.config_reader import load_config
 from random import shuffle
+from src.logger import get_logger
 
 import csv
 import pandas as pd
@@ -89,5 +89,5 @@ class DataIngestion:
 
 
 if __name__ == "__main__":
-    data_ingestion = DataIngention(config="src/config/config.yaml")
+    data_ingestion = DataIngestion(config="src/config/config.yaml")
     data_ingestion.store_data()

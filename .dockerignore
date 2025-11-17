@@ -1,0 +1,7 @@
+.venv
+tap30.egg-info
+.git
+artifacts
+logs
+mlruns
+eda.ipynb

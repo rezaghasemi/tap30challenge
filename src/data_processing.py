@@ -1,7 +1,7 @@
 import pandas as pd
-from logger import get_logger
+from src.logger import get_logger
 from pathlib import Path
-from config_reader import load_config
+from src.config_reader import load_config
 
 logger = get_logger(__name__)
 

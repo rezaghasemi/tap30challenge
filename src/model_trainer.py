@@ -2,8 +2,8 @@ from pathlib import Path
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import root_mean_squared_error
-from logger import get_logger
-from config_reader import load_config
+from src.logger import get_logger
+from src.config_reader import load_config
 import joblib
 import mlflow
 
